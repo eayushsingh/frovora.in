@@ -160,7 +160,7 @@ export function MenuCard({ group, index }: MenuCardProps) {
         ) : group.id === "brownies" ? (
           // Real brownie product photo
           <Image
-            src="/images/image.png"
+            src="/images/brownie.png"
             alt="Frovora Brownies"
             fill
             className="object-cover"

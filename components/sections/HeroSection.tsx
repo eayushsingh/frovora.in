@@ -97,7 +97,7 @@ export function HeroSection() {
           >
             {/* Real brownie product photo */}
             <Image
-              src="/images/image.png"
+              src="/images/brownie.png"
               alt="Frovora Brownies"
               fill
               className="object-cover"
