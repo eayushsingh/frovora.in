@@ -156,6 +156,8 @@ export function MenuCard({ group, index }: MenuCardProps) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 33vw"
+            priority
+            loading="eager"
           />
         ) : group.id === "brownies" ? (
           // Real brownie product photo
@@ -165,6 +167,8 @@ export function MenuCard({ group, index }: MenuCardProps) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 33vw"
+            priority
+            loading="eager"
           />
         ) : (
           // Real bars product photo
@@ -174,6 +178,8 @@ export function MenuCard({ group, index }: MenuCardProps) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 33vw"
+            priority
+            loading="eager"
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />

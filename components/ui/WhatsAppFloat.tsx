@@ -16,7 +16,7 @@ export function WhatsAppFloat() {
       </div>
 
       <motion.button
-        onClick={openWhatsApp}
+        onClick={() => openWhatsApp()}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.94 }}
         aria-label="Order on WhatsApp"

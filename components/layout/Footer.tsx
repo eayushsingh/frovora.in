@@ -14,7 +14,7 @@ const LINKS = {
   ],
   Connect: [
     { label: "@frovora.in", href: "https://instagram.com/frovora.in", external: true },
-    { label: "WhatsApp", href: "#", onClick: openWhatsApp },
+    { label: "WhatsApp", href: "#", onClick: () => openWhatsApp() },
   ],
 };
 

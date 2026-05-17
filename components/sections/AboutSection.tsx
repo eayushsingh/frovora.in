@@ -24,6 +24,8 @@ export function AboutSection() {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                loading="eager"
               />
               <div className="absolute inset-0 bg-black/10 mix-blend-overlay" />
             </div>

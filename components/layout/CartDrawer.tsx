@@ -13,12 +13,56 @@ export function CartDrawer() {
   const [mounted, setMounted] = useState(false);
   const [instaState, setInstaState] = useState<"idle" | "copied" | "error">("idle");
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => setMounted(true), []);
+  // Delivery details form states
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [preferredTime, setPreferredTime] = useState("");
+  const [validationError, setValidationError] = useState("");
+
+  // Load saved details on mount
+  useEffect(() => {
+    setMounted(true);
+    const savedName = localStorage.getItem("frovora-customer-name") || "";
+    const savedAddress = localStorage.getItem("frovora-customer-address") || "";
+    setName(savedName);
+    setAddress(savedAddress);
+  }, []);
+
+  const handleNameChange = (val: string) => {
+    setName(val);
+    localStorage.setItem("frovora-customer-name", val);
+  };
+
+  const handleAddressChange = (val: string) => {
+    setAddress(val);
+    localStorage.setItem("frovora-customer-address", val);
+  };
+
+  const handleWhatsAppClick = () => {
+    if (!name.trim()) {
+      setValidationError("Please enter your name.");
+      return;
+    }
+    if (!address.trim()) {
+      setValidationError("Please enter your delivery address.");
+      return;
+    }
+    setValidationError("");
+    openWhatsApp(name, address, preferredTime);
+  };
 
   const handleInstaClick = async () => {
+    if (!name.trim()) {
+      setValidationError("Please enter your name.");
+      return;
+    }
+    if (!address.trim()) {
+      setValidationError("Please enter your delivery address.");
+      return;
+    }
+    setValidationError("");
     try {
-      await navigator.clipboard.writeText(buildWhatsAppMessage());
+      await navigator.clipboard.writeText(buildWhatsAppMessage(name, address, preferredTime));
       setInstaState("copied");
       setTimeout(() => {
         setInstaState("idle");
@@ -138,7 +182,66 @@ export function CartDrawer() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="px-6 py-5 border-t border-[#E8E8E8] bg-[#F8F7F5] space-y-4">
+              <div className="px-6 py-5 border-t border-[#E8E8E8] bg-[#F8F7F5] space-y-4 shrink-0 overflow-y-auto max-h-[55vh]">
+                {/* Delivery Details Form */}
+                <div className="space-y-3 pb-3 border-b border-[#E8E8E8]">
+                  <p className="font-display italic text-[18px] text-[#0D0D0D] tracking-tight">
+                    Delivery Details
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-2.5">
+                    <div>
+                      <label className="block font-body text-[9px] tracking-[0.15em] uppercase text-[#9A9A9A] mb-1 font-medium">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => handleNameChange(e.target.value)}
+                        placeholder="Enter your name"
+                        className="w-full h-9 border border-[#E8E8E8] bg-white px-3 font-body text-xs focus:outline-none focus:border-[#1B3A8C] transition-colors rounded-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-body text-[9px] tracking-[0.15em] uppercase text-[#9A9A9A] mb-1 font-medium">
+                        Delivery Address
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={address}
+                        onChange={(e) => handleAddressChange(e.target.value)}
+                        placeholder="Flat/House no, building, street, landmark"
+                        className="w-full border border-[#E8E8E8] bg-white p-2.5 font-body text-xs focus:outline-none focus:border-[#1B3A8C] transition-colors resize-none rounded-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-body text-[9px] tracking-[0.15em] uppercase text-[#9A9A9A] mb-1 font-medium">
+                        Preferred Delivery Time
+                      </label>
+                      <input
+                        type="text"
+                        value={preferredTime}
+                        onChange={(e) => setPreferredTime(e.target.value)}
+                        placeholder="e.g., Today 6 PM or Sunday Afternoon"
+                        className="w-full h-9 border border-[#E8E8E8] bg-white px-3 font-body text-xs focus:outline-none focus:border-[#1B3A8C] transition-colors rounded-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Validation Error Message */}
+                  {validationError && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="font-body text-[11px] text-red-500 font-medium"
+                    >
+                      {validationError}
+                    </motion.p>
+                  )}
+                </div>
+
                 <div className="flex justify-between items-center">
                   <span className="font-body text-xs tracking-widest uppercase text-[#9A9A9A]">
                     Subtotal
@@ -149,7 +252,7 @@ export function CartDrawer() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <button
-                    onClick={openWhatsApp}
+                    onClick={handleWhatsAppClick}
                     className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1fae54] text-white font-body font-medium text-sm tracking-widest uppercase py-4 transition-colors duration-200"
                   >
                     <FaWhatsapp size={18} />

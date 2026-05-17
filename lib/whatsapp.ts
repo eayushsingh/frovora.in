@@ -1,6 +1,6 @@
 import { useCartStore } from "./cartStore";
 
-export function buildWhatsAppMessage(): string {
+export function buildWhatsAppMessage(name?: string, address?: string, time?: string): string {
   const { items, getTotal } = useCartStore.getState();
 
   const lines = items
@@ -19,17 +19,17 @@ export function buildWhatsAppMessage(): string {
     "",
     `Total: ₹${getTotal()}`,
     "",
-    "My Name:",
-    "My Address:",
-    "Preferred Time:",
+    `My Name: ${name?.trim() || ""}`,
+    `My Address: ${address?.trim() || ""}`,
+    `Preferred Time: ${time?.trim() || ""}`,
     "",
     "Found you on Instagram @frovora.in ✨",
   ].join("\n");
 }
 
-export function openWhatsApp() {
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "919999999999";
-  const msg = encodeURIComponent(buildWhatsAppMessage());
+export function openWhatsApp(name?: string, address?: string, time?: string) {
+  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "918008292482";
+  const msg = encodeURIComponent(buildWhatsAppMessage(name, address, time));
   window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
 }
 

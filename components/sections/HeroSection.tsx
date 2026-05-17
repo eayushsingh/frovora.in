@@ -64,7 +64,7 @@ export function HeroSection() {
           Explore Menu
         </a>
         <button
-          onClick={openWhatsApp}
+          onClick={() => openWhatsApp()}
           className="px-8 py-4 sm:py-4 flex-1 flex items-center justify-center gap-2 font-body font-medium text-[12px] md:text-[13px] tracking-[0.15em] uppercase text-[#0D0D0D] hover:text-[#25D366] hover:bg-[#F0FDF4] transition-all duration-200 border-b sm:border-b-0 sm:border-r border-[#E8E8E8]"
         >
           <FaWhatsapp size={15} />
@@ -103,6 +103,7 @@ export function HeroSection() {
               className="object-cover"
               sizes="(max-width: 768px) 48vw, 32vw"
               priority
+              loading="eager"
             />
             {/* Subtle overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#1B3A8C]/20 to-transparent mix-blend-overlay" />
@@ -129,6 +130,7 @@ export function HeroSection() {
               className="object-cover"
               sizes="(max-width: 768px) 52vw, 35vw"
               priority
+              loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1B3A8C]/20 to-transparent mix-blend-overlay" />
           </motion.div>

@@ -30,7 +30,7 @@ export function OrderCTASection() {
         </motion.h2>
 
         <motion.button
-          onClick={openWhatsApp}
+          onClick={() => openWhatsApp()}
           className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1fae54] text-white font-body font-medium text-base tracking-widest uppercase px-12 py-5 transition-colors duration-200 mx-auto"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

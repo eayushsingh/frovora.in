@@ -53,7 +53,7 @@ export function GiftingSection() {
           transition={{ delay: 0.45 }}
         >
           <button
-            onClick={openWhatsApp}
+            onClick={() => openWhatsApp()}
             className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#1B3A8C] hover:bg-[#0F2563] text-white font-body font-medium text-sm tracking-widest uppercase px-8 py-4 transition-colors duration-200"
           >
             <FaWhatsapp size={16} />

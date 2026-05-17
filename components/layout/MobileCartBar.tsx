@@ -42,7 +42,13 @@ export function MobileCartBar() {
 
           {/* WhatsApp half */}
           <button
-            onClick={openWhatsApp}
+            onClick={() => {
+              if (count > 0) {
+                setCartOpen(true);
+              } else {
+                openWhatsApp();
+              }
+            }}
             className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white font-body font-medium text-sm tracking-widest uppercase py-4 hover:bg-[#1fae54] transition-colors"
           >
             <FaWhatsapp size={18} />

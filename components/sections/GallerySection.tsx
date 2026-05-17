@@ -71,6 +71,8 @@ export function GallerySection() {
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 33vw"
+                priority={post.id === 1 || post.id === 4 || post.id === 5}
+                loading="eager"
               />
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-[#1B3A8C]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
